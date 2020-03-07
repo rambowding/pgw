@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pgw/it_tab.dart';
 import 'package:pgw/math_tab.dart';
 import 'generated/l10n.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  debugPaintSizeEnabled = false; // 调式对齐格子线开关
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

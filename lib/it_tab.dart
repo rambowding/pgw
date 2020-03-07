@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pgw/color_rgb.dart';
 import 'package:pgw/colors_add_detail.dart';
 import 'package:pgw/widgets.dart';
 
@@ -34,6 +35,12 @@ class _ItTabState extends State<ItTab> {
                 ),
               ),
               ItemCard(
+                index: 0,
+                header: '颜色RGB',
+                content: '🚀',
+              ),
+              ItemCard(
+                index: 1,
                 header: '颜色相加',
                 content: '🔥',
               ),
@@ -47,11 +54,11 @@ class _ItTabState extends State<ItTab> {
 
 /// 编程Tab中的子项
 class ItemCard extends StatelessWidget {
-
+  final int index;
   final String header;
   final String content;
 
-  const ItemCard({this.header, this.content});
+  const ItemCard({this.index, this.header, this.content});
 
 
   @override
@@ -100,7 +107,18 @@ class ItemCard extends StatelessWidget {
         Navigator.of(context, rootNavigator: true).push<void>(
           CupertinoPageRoute(
             title: header,
-            builder: (context) => ColorsAddDetail(),
+            builder: (context) {
+              Widget result;
+              switch (index) {
+                case 0 :
+                  result = ColorRgb();
+                  break;
+                case 1 :
+                  result = ColorsAddDetail();
+                  break;
+              };
+              return result;
+            },
           ),
         );
       },
