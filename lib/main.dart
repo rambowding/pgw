@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -15,17 +16,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      localizationsDelegates: [S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      onGenerateTitle: (context) {
-        return S.of(context).app_name;
-      },
+    return BotToastInit(
+      child: CupertinoApp(
+        localizationsDelegates: [S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          // 使用Cupertino需要添加此delegate，否则会报以下crash
+          // I/flutter (23136): The getter 'alertDialogLabel' was called on null.
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        onGenerateTitle: (context) {
+          return S.of(context).app_name;
+        },
 
-      home: MyHomePage(),
+        home: MyHomePage(),
+        navigatorObservers: [BotToastNavigatorObserver()],
+      ),
     );
   }
 }

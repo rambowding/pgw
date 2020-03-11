@@ -42,6 +42,10 @@ class _ColorRgbState extends State<ColorRgb> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
+                SizedBox(
+                  width: 300,
+                  child: Text('''提示：计算机当前主流的标准表示颜色的方是使用三个8位无符号整数（0到255）表示红色、绿色和蓝色的强度，即RGB值。'''),
+                ),
                 CircleAvatar(
                   backgroundColor: Color.fromARGB(255, r, g, b),
                   radius: 100,

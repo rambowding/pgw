@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgw/it_tab.dart';
@@ -36,14 +37,18 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
   /// 是否是对左边选择颜色
   var isUseLeft = true;
 
+  /// R,G,B默认值为-2，当输入非法时设为-1
+  /// 输入的R值
+  var inputR = -2;
+  /// 输入的G值
+  var inputG = -2;
+  /// 输入的B值
+  var inputB = -2;
+
   /// 保存选择的颜色
   void _saveSelectedColor(int index) {
     isUseLeft ? leftRgbColor = rgbColors[index] : rightRgbColor = rgbColors[index];
-    print("----useleft=$isUseLeft----leftcolor=$leftRgbColor----rightcolor=$rightRgbColor");
-
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   /// 从数组中构造Color对象
@@ -72,10 +77,16 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
       navigationBar: CupertinoNavigationBar(
         previousPageTitle: ItTab.title,
       ),
+      resizeToAvoidBottomInset: false, // 弹输入法时不让尺寸发生变化，否则会报尺寸不够的错误
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            // 文字提示
+            Card(
+              margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+              child: Text('''提示：计算机当前主流的标准表示颜色的方是使用三个8位无符号整数（0到255）表示红色、绿色和蓝色的强度，即RGB值。'''),
+            ),
             // 加法区
             Card(
               elevation: 5,
@@ -288,7 +299,9 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => _saveSelectedColor(8),
+                        onTap: () {
+                          _saveSelectedColor(8);
+                        },
                         child: CircleAvatar(
                           backgroundColor: _buildColorFromArray(8),
                           child: Text('Cyan'),
@@ -297,7 +310,147 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
                       ),
                     ]
                   ),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 0),),
+                  Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 30),),
+                  FloatingActionButton.extended(
+                    label: Text('RGB值手动输入'),
+                    backgroundColor: Colors.amber,
+                    onPressed: (){
+                      showCupertinoDialog<int>(context: context,
+                          builder: (context){
+                            return CupertinoAlertDialog(
+                              title: Text('输入范围在0~255之间'),
+                              content: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Text('R:'),
+                                      SizedBox(
+                                        width: 100,
+                                        // CupertinoTextField如果不显示设置width，会报以下crash
+                                        // RenderEditable object was given an infinite size during layout.
+                                        child: CupertinoTextField(
+                                          keyboardType: TextInputType.number,
+                                          onChanged: (value) {
+                                            try {
+                                              var intValue = int.parse(value);
+                                              if (intValue < 0 || intValue > 255) {
+                                                inputR = -1;
+                                              } else {
+                                                inputR = intValue;
+                                              }
+                                            }
+                                            on FormatException catch(e) {
+                                              inputR = -1;
+                                            }
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Text('G:'),
+                                      SizedBox(
+                                        width: 100,
+                                        child: CupertinoTextField(
+                                          keyboardType: TextInputType.number,
+                                          onChanged: (value) {
+                                            try {
+                                              var intValue = int.parse(value);
+                                              if (intValue < 0 || intValue > 255) {
+                                                inputG = -1;
+                                              } else {
+                                                inputG = intValue;
+                                              }
+                                            }
+                                            on FormatException catch(e) {
+                                              inputG = -1;
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Text('B:'),
+                                      SizedBox(
+                                        width: 100,
+                                        child: CupertinoTextField(
+                                          keyboardType: TextInputType.number,
+                                          onChanged: (value) {
+                                            try {
+                                              var intValue = int.parse(value);
+                                              if (intValue < 0 || intValue > 255) {
+                                                inputB = -1;
+                                              } else {
+                                                inputB = intValue;
+                                              }
+                                            }
+                                            on FormatException catch(e) {
+                                              inputB = -1;
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                  child: Text('取消'),
+                                  onPressed: (){
+                                    Navigator.of(context).pop(0);
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: Text('确认'),
+                                  onPressed: () {
+                                    // 非法输入或者未输入均弹提示
+                                    if (inputR == -1 || inputG == -1 || inputB == -1 || inputR == -2) {
+                                      BotToast.showText(text: '请输入0~255之间的数字');
+                                    } else {
+                                      Navigator.of(context).pop(1);
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      ).then((onValue){
+                        if (onValue == 1) { // 点了确定按钮
+                          // 刷新
+                          setState(() {
+                            if (isUseLeft) {
+                              // 单个赋值会报以下异常，原因未知
+                              // Unsupported operation: Cannot modify an unmodifiable list
+                              leftRgbColor = [inputR, inputG, inputB];
+                            } else {
+                              rightRgbColor = [inputR, inputG, inputB];
+                            }
+                          });
+                        } else if (onValue == 0) { // 点了取消按钮
+                          // 恢复默认值
+                          inputR = -2;
+                          inputG = -2;
+                          inputB = -2;
+                        }
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
