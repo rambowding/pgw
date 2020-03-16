@@ -13,17 +13,17 @@ class MathTab extends StatefulWidget {
 }
 
 class _MathTabState extends State<MathTab> {
-  // 数学列表的个数
-  static const _itemsLength = 4;
-
+  /// 数学项名称列表
+  static const List<String> itemsNames  = ['加减乘除'];
+  /// 数学项的个数
+  final _itemsLength = itemsNames.length;
+  /// 注意不能少于itemsNames.length
   static const List<Color> itemsColors = [
     CupertinoColors.systemTeal,
     CupertinoColors.systemIndigo,
     CupertinoColors.systemPurple,
     CupertinoColors.systemOrange
   ];
-
-  static const List<String> itemsNames  = ['加法', '减法', '乘法', '除法'];
 
   @override
   Widget build(BuildContext context) {

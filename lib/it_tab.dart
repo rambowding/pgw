@@ -5,7 +5,7 @@ import 'package:pgw/widgets.dart';
 
 /// 编程Tab
 class ItTab extends StatefulWidget {
-  static const title = '编程';
+  static const title = '计算机';
   static const icon = Icon(CupertinoIcons.bell);
 
   @override
