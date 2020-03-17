@@ -84,8 +84,9 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
           children: <Widget>[
             // 文字提示
             Card(
+              elevation: 0,
               margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
-              child: Text('''提示：计算机当前主流的标准表示颜色的方是使用三个8位无符号整数（0到255）表示红色、绿色和蓝色的强度，即RGB值。'''),
+              child: Text('将两个RGB值颜色相加，可以产生新的不同颜色'),
             ),
             // 加法区
             Card(

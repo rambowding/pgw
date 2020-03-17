@@ -44,7 +44,7 @@ class _ColorRgbState extends State<ColorRgb> {
               children: <Widget>[
                 SizedBox(
                   width: 300,
-                  child: Text('''提示：计算机当前主流的标准表示颜色的方是使用三个8位无符号整数（0到255）表示红色、绿色和蓝色的强度，即RGB值。'''),
+                  child: Text('将红、绿和蓝色混在一起，取值不同可以产生不同的颜色，取值范围是0-255'),
                 ),
                 CircleAvatar(
                   backgroundColor: Color.fromARGB(255, r, g, b),
