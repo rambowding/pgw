@@ -95,7 +95,7 @@ class _MathDetailState extends State<MathDetail> {
                       child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                         builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowMode, _) {
                           return GestureDetector(
-                            onTap: () => arrowMode.update(true),
+                            onTap: () => arrowMode.update(0),
                             child: Container(
                               margin: EdgeInsets.all(15),
                               padding: EdgeInsets.all(10),
@@ -132,7 +132,7 @@ class _MathDetailState extends State<MathDetail> {
                       child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                         builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowMode, _) {
                           return GestureDetector(
-                            onTap: () => arrowMode.update(false),
+                            onTap: () => arrowMode.update(1),
                             child: Container(
                               margin: EdgeInsets.all(15),
                               padding: EdgeInsets.all(10),
@@ -162,10 +162,10 @@ class _MathDetailState extends State<MathDetail> {
                       flex: 1,
                     ),
                     Expanded(
-                      child: Consumer2<ResultAreaModel, OperatorModel>(
-                          builder: (context, ResultAreaModel resultModel, OperatorModel opModel, _) {
+                      child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                          builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, _) {
                             return GestureDetector(
-                              onTap: () => resultModel.updateResult(opModel.value),
+                              onTap: () => arrowModel.update(2),
                               child: Container(
                                 margin: EdgeInsets.all(15),
                                 padding: EdgeInsets.all(10),
@@ -173,7 +173,7 @@ class _MathDetailState extends State<MathDetail> {
                                   border: Border.all(color: CupertinoColors.systemGrey, width: 0.5),
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                 ),
-                                child: Text(resultModel.result == -1 ? '?' : adjustResult(resultModel.result.toString()),
+                                child: Text(resultModel.result,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 20,
@@ -199,7 +199,7 @@ class _MathDetailState extends State<MathDetail> {
                     Expanded(
                       child: Consumer<ArrowAreaModel>(
                         builder: (context, ArrowAreaModel model, _) {
-                          if (model.isLeft) {
+                          if (model.index == 0) {
                             return Image.asset('assets/images/arrow_up.png');
                           } else {
                             return Container();
@@ -215,10 +215,10 @@ class _MathDetailState extends State<MathDetail> {
                     Expanded(
                       child: Consumer<ArrowAreaModel>(
                         builder: (context, ArrowAreaModel model, _) {
-                          if (model.isLeft) {
-                            return Container();
-                          } else {
+                          if (model.index == 1) {
                             return Image.asset('assets/images/arrow_up.png');
+                          } else {
+                            return Container();
                           }
                         },
                       ),
@@ -226,7 +226,19 @@ class _MathDetailState extends State<MathDetail> {
                     ),
                     Expanded(
                       child: Container(),
-                      flex: 6,
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Consumer<ArrowAreaModel>(
+                        builder: (context, ArrowAreaModel model, _) {
+                          if (model.index == 2) {
+                            return Image.asset('assets/images/arrow_up.png');
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
+                      flex: 5,
                     ),
                   ],
                 ),
@@ -250,7 +262,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 1,
-                                  onPressed: () => resultModel.update('1', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('1', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('1',
@@ -266,7 +278,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 2,
-                                  onPressed: () => resultModel.update('2', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('2', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('2',
@@ -282,7 +294,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 3,
-                                  onPressed: () => resultModel.update('3', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('3', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('3',
@@ -308,7 +320,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 4,
-                                  onPressed: () => resultModel.update('4', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('4', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('4',
@@ -324,7 +336,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 5,
-                                  onPressed: () => resultModel.update('5', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('5', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('5',
@@ -340,7 +352,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 6,
-                                  onPressed: () => resultModel.update('6', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('6', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('6',
@@ -366,7 +378,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 7,
-                                  onPressed: () => resultModel.update('7', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('7', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('7',
@@ -382,7 +394,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 8,
-                                  onPressed: () => resultModel.update('8', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('8', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('8',
@@ -398,7 +410,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 9,
-                                  onPressed: () => resultModel.update('9', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('9', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('9',
@@ -424,7 +436,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 0,
-                                  onPressed: () => resultModel.update('0', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('0', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('0',
@@ -434,9 +446,53 @@ class _MathDetailState extends State<MathDetail> {
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: 80,
                               height: 80,
+                              child: Consumer3<ResultAreaModel, ArrowAreaModel, OperatorModel>(
+                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel,
+                                    OperatorModel opModel, child) {
+                                 if (arrowModel.index == 2) {
+                                   return FloatingActionButton(
+                                     heroTag: -1,
+                                     onPressed: () {
+                                       // 只有选中结果按钮才响应点击事件处理逻辑
+                                       if (arrowModel.index == 2) {
+                                         bool answerRight = resultModel.checkResult(opModel.value);
+
+                                         String text = '答错啦，再想一想';
+                                         if (answerRight) {
+                                           text = '答对啦，你真棒';
+                                         }
+                                         showCupertinoDialog(
+                                           context: context,
+                                           builder: (context) {
+                                             return CupertinoAlertDialog(
+                                               content: Text(text),
+                                               actions: <Widget>[
+                                                 CupertinoDialogAction(
+                                                   child: Text('关闭'),
+                                                   onPressed: () => Navigator.of(context).pop(),
+                                                 )
+                                               ],
+                                             );
+                                           },
+                                         );
+                                       }
+                                     },
+                                     backgroundColor: arrowModel.index == 2 ? CupertinoColors.systemOrange : CupertinoColors.white,
+                                     child: child,
+                                   );
+                                 } else {
+                                   return Container();
+                                 }
+                                },
+                                child: Text('检查答案',
+                                  style: TextStyle(
+                                      fontSize: 15
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 80,
@@ -444,7 +500,7 @@ class _MathDetailState extends State<MathDetail> {
                               child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                                 builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
                                   heroTag: 10,
-                                  onPressed: () => resultModel.update('c', arrowModel.isLeft),
+                                  onPressed: () => resultModel.update('c', arrowModel.index),
                                   child: child,
                                 ),
                                 child: Text('C',
@@ -495,14 +551,6 @@ class _MathDetailState extends State<MathDetail> {
     }
     return char;
   }
-
-  /// 去掉结果中的.0字符
-  String adjustResult(String result) {
-    if (result.endsWith('.0')) {
-      return result.substring(0, result.length - 2);
-    }
-    return result;
-  }
 }
 
 /// 结果区的model
@@ -510,10 +558,11 @@ class ResultAreaModel with ChangeNotifier {
 
   String left = '0';
   String right = '0';
-  double result = -1; // 默认值，表示未计算
+  String result = '?';
+  double realResult = -1; // 默认值，表示未计算
 
-  void update(String key, bool isSelectLeft) {
-    if (isSelectLeft) {
+  void update(String key, int select) {
+    if (select == 0) {
       if (key == 'c') left = '0';// 清除
       else if (left == '0') left = key;
       else {
@@ -523,7 +572,7 @@ class ResultAreaModel with ChangeNotifier {
         }
         left += key;
       }
-    } else {
+    } else if (select == 1) {
       if (key == 'c') right = '0';
       else if (right == '0') right = key;
       else {
@@ -533,46 +582,61 @@ class ResultAreaModel with ChangeNotifier {
         }
         right += key;
       }
+    } else if (select == 2) {
+      if (key == 'c') result = '0';
+      else if (result == '0' || result == '?') result = key;
+      else {
+        result += key;
+      }
     }
 //    print('-------isLeft=$isSelectLeft----------left=$left----------right=$right');
 
-    result = -1; // 需要重复结果，否则不会作计算操作，参见updateResult方法
+    realResult = -1; // 需要重复结果，否则不会作计算操作，参见updateResult方法
     // 通知消费者更新
     notifyListeners();
   }
 
-  void updateResult(int operator) {
+  bool checkResult(int operator) {
     // 当result为非-1时，表示已经经过计算，此时不再重复计算
-    if (result == -1) {
+    if (realResult == -1) {
       switch (operator) {
         case 0:
-          result = double.parse(left) + double.parse(right);
+          realResult = double.parse(left) + double.parse(right);
           break;
         case 1:
-          result = double.parse(left) - double.parse(right);
+          realResult = double.parse(left) - double.parse(right);
           break;
         case 2:
-          result = double.parse(left) * double.parse(right);
+          realResult = double.parse(left) * double.parse(right);
           break;
         case 3:
           double tmpRight = double.parse(right);
           if (tmpRight == 0) {
             BotToast.showText(text: '除数不能为0');
-            result = 0; // 表示经过计算了
+            realResult = 0; // 表示经过计算了
           } else {
-            result = double.parse(left) / tmpRight;
+            realResult = double.parse(left) / tmpRight;
           }
           break;
         default:
           break;
       }
-      notifyListeners();
     }
+    print('---op=$operator---left=$left---right=$right----result=$result---realResut=$realResult');
+    return result == _adjustResult(realResult.toString());
+  }
+
+  /// 去掉结果中的.0字符
+  String _adjustResult(String result) {
+    if (result.endsWith('.0')) {
+      return result.substring(0, result.length - 2);
+    }
+    return result;
   }
 
   void resetResult() {
-    if (result != -1) {
-      result = -1;
+    if (realResult != -1) {
+      realResult = -1;
       notifyListeners();
     }
   }
@@ -580,13 +644,13 @@ class ResultAreaModel with ChangeNotifier {
 
 /// 箭头区的model
 class ArrowAreaModel with ChangeNotifier {
-  /// true表示修改左边数字，false表示修改右边数字
-  bool isLeft = true;
+  /// 0表示算术符号左边数字，1表示算术符号右边数字，2表示结果数字
+  int index = 0;
 
-  void update(bool left) {
-    if (isLeft == left) return;
+  void update(int select) {
+    if (index == select) return;
 
-    isLeft = left;
+    index = select;
     notifyListeners();
   }
 }
