@@ -61,7 +61,9 @@ class _MathTabState extends State<MathTab> {
           song: itemsNames[index],
           color: color,
           heroAnimation: AlwaysStoppedAnimation(0),
-          onPressed: () => Navigator.of(context).push<void>(
+          // Navigator.of的参数rootNavigator设置为true时，可解决当在MathDetail中弹dialog时
+          // 可避免整个MathDetail重新build，原因不是很理解
+          onPressed: () => Navigator.of(context, rootNavigator: true).push<void>(
             CupertinoPageRoute(
               builder: (context) => MathDetail(
                 id: index,
