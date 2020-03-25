@@ -191,7 +191,7 @@ class _MathDetailState extends State<MathDetail> {
               ),
               // 箭头区
               Container( // 此区域用Container来wrap一下，否则高度会过高，导致超过屏幕尺寸，原因未知
-                height: 80,
+                height: 60,
                 margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
