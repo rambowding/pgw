@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pgw/color_rgb.dart';
 import 'package:pgw/colors_add_detail.dart';
+import 'package:pgw/html_detail.dart';
 import 'package:pgw/widgets.dart';
 
 /// 编程Tab
@@ -23,17 +24,6 @@ class _ItTabState extends State<ItTab> {
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    '😼',
-                    style: TextStyle(
-                      fontSize: 100
-                    ),
-                  ),
-                ),
-              ),
               ItemCard(
                 index: 0,
                 header: '颜色RGB',
@@ -44,6 +34,11 @@ class _ItTabState extends State<ItTab> {
                 header: '颜色相加',
                 content: '🔥',
               ),
+              ItemCard(
+                index: 2,
+                header: 'HTML',
+                content: '😼',
+              )
             ],
           ),
         ),
@@ -110,13 +105,16 @@ class ItemCard extends StatelessWidget {
             builder: (context) {
               Widget result;
               switch (index) {
-                case 0 :
+                case 0:
                   result = ColorRgb();
                   break;
-                case 1 :
+                case 1:
                   result = ColorsAddDetail();
                   break;
-              };
+                case 2:
+                  result = HtmlDetail();
+                  break;
+              }
               return result;
             },
           ),
