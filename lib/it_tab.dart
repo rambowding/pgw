@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pgw/color_rgb.dart';
+import 'package:pgw/color_rgb_detail.dart';
 import 'package:pgw/colors_add_detail.dart';
 import 'package:pgw/html_detail.dart';
 import 'package:pgw/widgets.dart';
@@ -106,7 +106,7 @@ class ItemCard extends StatelessWidget {
               Widget result;
               switch (index) {
                 case 0:
-                  result = ColorRgb();
+                  result = ColorRgbDetail();
                   break;
                 case 1:
                   result = ColorsAddDetail();

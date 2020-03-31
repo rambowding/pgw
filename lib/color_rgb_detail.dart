@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'it_tab.dart';
 
 /// 颜色rgb页
-class ColorRgb extends StatefulWidget {
+class ColorRgbDetail extends StatefulWidget {
 
   @override
-  _ColorRgbState createState() => _ColorRgbState();
+  _ColorRgbDetailState createState() => _ColorRgbDetailState();
 
 }
 
-class _ColorRgbState extends State<ColorRgb> {
+class _ColorRgbDetailState extends State<ColorRgbDetail> {
   /// 保存r, g, b的选择值，默认为255
   var r = 255, g = 255, b = 255;
   /// 值范围0~255
@@ -20,7 +20,7 @@ class _ColorRgbState extends State<ColorRgb> {
   /// 记录修改r, g, b中的哪个
   var tab = 'default';
 
-  _ColorRgbState() {
+  _ColorRgbDetailState() {
     for(var i = 0; i < 256; i++) {
       choices[i] = i;
     }
