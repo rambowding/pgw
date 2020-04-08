@@ -1,9 +1,10 @@
-import 'dart:async';
 import 'dart:convert';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgw/it_tab.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HtmlDetail extends StatefulWidget {
@@ -15,35 +16,34 @@ class HtmlDetail extends StatefulWidget {
 
 class _HtmlDetailState extends State<HtmlDetail> {
 
-  final Completer<WebViewController> _webviewController =
-      Completer<WebViewController>();
-
   final _textEditingController = TextEditingController();
+
+  WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
+//    print('-----------------build');
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       navigationBar: CupertinoNavigationBar(
         previousPageTitle: ItTab.title,
-        trailing: FutureBuilder<WebViewController>(
-          future: _webviewController.future,
-          builder: (BuildContext context, AsyncSnapshot<WebViewController> controller){
-            return CupertinoButton(
-              padding: EdgeInsets.zero,
-              child: Icon(CupertinoIcons.refresh_bold),
-              onPressed: () {
-                _loadTextFieldContent(controller.data, _textEditingController.text);
-              },
-            );
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: Icon(CupertinoIcons.refresh_bold),
+          onPressed: () {
+            _loadTextFieldContent(_controller, _textEditingController.text);
           },
         ),
-      ),
-      child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
+    ),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: WebViewModel()),
+        ],
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
                 child: CupertinoTextField(
                   controller: _textEditingController,
                   placeholder: '请在这输入html',
@@ -52,18 +52,35 @@ class _HtmlDetailState extends State<HtmlDetail> {
                     border: Border.all(color: CupertinoColors.systemGrey, width: 2),
                   ),
                 ),
-            ),
-            Text('网页title'),
-            Expanded(
-              child: WebView(
-                initialUrl: 'https://www.baidu.com',
-                onWebViewCreated: (WebViewController controller) {
-                  _webviewController.complete(controller);
-                },
               ),
-              flex: 2,
-            ),
-          ],
+              Container(
+                color: CupertinoColors.systemGrey3,
+                width: MediaQuery.of(context).size.width,
+                child: Consumer<WebViewModel>(
+                  builder: (context, WebViewModel model, _) {
+                    return Text(model.title);
+                  },
+                ),
+              ),
+              Expanded(
+                child:Consumer<WebViewModel>(
+                  builder: (context, WebViewModel model, _) {
+                    return WebView(
+                      initialUrl: 'https://www.baidu.com',
+                      onWebViewCreated: (WebViewController controller) {
+                        _controller = controller;
+                      },
+                      onPageFinished: (String url) {
+//                        print(('----------onPageFinished url=$url'));
+                        model.updateTitle(_controller);
+                      },
+                    );
+                  },
+                ),
+                flex: 2,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -71,9 +88,35 @@ class _HtmlDetailState extends State<HtmlDetail> {
 
   /// 通过webview加载输入框的内容
   void _loadTextFieldContent(WebViewController controller, String text) async{
-//    print('------------------------text=$text');
+    if (controller == null) {
+      print('webview controller is null');
+      return;
+    }
+
+    if (text.isEmpty) {
+      BotToast.showText(text: '输入内容为空');
+      return;
+    }
+
     final String contentBase64 =
       base64Encode(const Utf8Encoder().convert(text));
     await controller.loadUrl('data:text/html;base64,$contentBase64');
+  }
+}
+
+class WebViewModel extends ChangeNotifier {
+  String title = '网页标题';
+
+  void updateTitle(WebViewController controller) async{
+    String newTitle = await controller.getTitle();
+
+    if (newTitle == title) return;
+
+    if (newTitle.isEmpty) {
+      title = '网页标题';
+    }
+
+    title = newTitle;
+    notifyListeners();
   }
 }
