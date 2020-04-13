@@ -19,27 +19,28 @@ class _ItTabState extends State<ItTab> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: <Widget>[
-              ItemCard(
-                index: 0,
-                header: '颜色RGB',
-                content: '🚀',
-              ),
-              ItemCard(
-                index: 1,
-                header: '颜色相加',
-                content: '🔥',
-              ),
-              ItemCard(
-                index: 2,
-                header: 'HTML',
-                content: '😼',
-              )
-            ],
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                ItemCard(
+                  index: 0,
+                  header: '颜色RGB',
+                  content: '🚀',
+                ),
+                ItemCard(
+                  index: 1,
+                  header: '颜色相加',
+                  content: '🔥',
+                ),
+                ItemCard(
+                  index: 2,
+                  header: 'HTML',
+                  content: '😼',
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -52,88 +52,89 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
           ChangeNotifierProvider.value(value: AddAreaModel()),
           ChangeNotifierProvider.value(value: ArrowAreaModel()),
         ],
-        child:  SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // 文字提示
-              Card(
-                elevation: 0,
-                margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
-                child: Text('将两个RGB值颜色相加，可以产生新的不同颜色'),
-              ),
-              // 加法区
-              Card(
-                elevation: 5,
-                margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
-                color: CupertinoColors.lightBackgroundGray,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 6.0, 0, 6.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: Consumer2<ArrowAreaModel, AddAreaModel>(
-                          builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, _) {
-                            return GestureDetector(
-                              onTap: (){
-                                arrowModel.update(true);
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundColor: Color.fromARGB(255, addModel.leftRgbColor[0],
-                                        addModel.leftRgbColor[1], addModel.leftRgbColor[2]),
-                                    radius: 30.0,
-                                  ),
-                                  Text(addModel.leftRgbColor.toString()),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                        flex: 8,
-                      ),
-                      Expanded(
-                        child: Text('+',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        child: Consumer2<ArrowAreaModel, AddAreaModel>(
-                          builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, _) {
-                            return GestureDetector(
-                              onTap: () => arrowModel.update(false),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundColor: Color.fromARGB(255, addModel.rightRgbColor[0],
-                                        addModel.rightRgbColor[1], addModel.rightRgbColor[2]),
-                                    radius: 30.0,
-                                  ),
-                                  Text(addModel.rightRgbColor.toString()),
-                                ],
-                              ),
-                            );
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // 文字提示
+                Card(
+                  elevation: 0,
+                  margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                  child: Text('将两个RGB值颜色相加，可以产生新的不同颜色'),
+                ),
+                // 加法区
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                  color: CupertinoColors.lightBackgroundGray,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 6.0, 0, 6.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          child: Consumer2<ArrowAreaModel, AddAreaModel>(
+                            builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, _) {
+                              return GestureDetector(
+                                onTap: (){
+                                  arrowModel.update(true);
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    CircleAvatar(
+                                      backgroundColor: Color.fromARGB(255, addModel.leftRgbColor[0],
+                                          addModel.leftRgbColor[1], addModel.leftRgbColor[2]),
+                                      radius: 30.0,
+                                    ),
+                                    Text(addModel.leftRgbColor.toString()),
+                                  ],
+                                ),
+                              );
                             },
-                        ),
-                        flex: 8,
-                      ),
-                      Expanded(
-                        child: Text('=',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 15.0,
                           ),
+                          flex: 8,
                         ),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        child: Consumer2<ArrowAreaModel, AddAreaModel>(
+                        Expanded(
+                          child: Text('+',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          child: Consumer2<ArrowAreaModel, AddAreaModel>(
+                            builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, _) {
+                              return GestureDetector(
+                                onTap: () => arrowModel.update(false),
+                                child: Column(
+                                  children: <Widget>[
+                                    CircleAvatar(
+                                      backgroundColor: Color.fromARGB(255, addModel.rightRgbColor[0],
+                                          addModel.rightRgbColor[1], addModel.rightRgbColor[2]),
+                                      radius: 30.0,
+                                    ),
+                                    Text(addModel.rightRgbColor.toString()),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          flex: 8,
+                        ),
+                        Expanded(
+                          child: Text('=',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          child: Consumer2<ArrowAreaModel, AddAreaModel>(
                             builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, _) {
                               return Column(
                                 children: <Widget>[
@@ -146,341 +147,342 @@ class _ColorsAddDetailState extends State<ColorsAddDetail> {
                                 ],
                               );
                             },
+                          ),
+                          flex: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // 箭头区
+                Card(
+                  elevation: 0,
+                  margin: EdgeInsets.fromLTRB(12.0, 0, 12.0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: Consumer<ArrowAreaModel>(
+                          builder: (context, ArrowAreaModel model, _) {
+                            return Text(
+                              '⇡',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 40,
+                                color: model.isLeft ? CupertinoColors.systemBlue : CupertinoColors.white,
+                              ),
+                            );
+                          },
                         ),
                         flex: 8,
+                      ),
+                      Expanded( // 仅占位作用
+                        child: Container(),
+                        flex: 1,
+                      ),
+                      Expanded(
+                        child: Consumer<ArrowAreaModel>(
+                          builder: (context, ArrowAreaModel model, _) {
+                            return Text(
+                              '⇡',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 40,
+                                color: model.isLeft ? CupertinoColors.white : CupertinoColors.systemBlue,
+                              ),
+                            );
+                          },
+                        ),
+                        flex: 8,
+                      ),
+                      Expanded( // 仅占位作用
+                        child: Container(),
+                        flex: 9,
                       ),
                     ],
                   ),
                 ),
-              ),
-              // 箭头区
-              Card(
-                elevation: 0,
-                margin: EdgeInsets.fromLTRB(12.0, 0, 12.0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                      child: Consumer<ArrowAreaModel>(
-                        builder: (context, ArrowAreaModel model, _) {
-                          return Text(
-                            '⇡',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 40,
-                              color: model.isLeft ? CupertinoColors.systemBlue : CupertinoColors.white,
+                // 颜色选择区
+                Card(
+                  elevation: 0.0,
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, circle) {
+                                return GestureDetector(
+                                  onTap: () => model.updateSelectedColor(0, arrowModel.isLeft),
+                                  child: circle,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(0),
+                                child: Text('Red'),
+                                radius: 40.0,
+                              ),
                             ),
-                          );
-                        },
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                                return GestureDetector(
+                                  onTap: () => model.updateSelectedColor(1, arrowModel.isLeft),
+                                  child: child,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(1),
+                                child: Text('Orange'),
+                                radius: 40.0,
+                              ),
+                            ),
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                                return GestureDetector(
+                                  onTap: () => model.updateSelectedColor(2, arrowModel.isLeft),
+                                  child: child,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(2),
+                                child: Text('Yellow'),
+                                radius: 40.0,
+                              ),
+                            ),
+                          ]
                       ),
-                      flex: 8,
-                    ),
-                    Expanded( // 仅占位作用
-                      child: Container(),
-                      flex: 1,
-                    ),
-                    Expanded(
-                      child: Consumer<ArrowAreaModel>(
-                        builder: (context, ArrowAreaModel model, _) {
-                          return Text(
-                            '⇡',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 40,
-                              color: model.isLeft ? CupertinoColors.white : CupertinoColors.systemBlue,
-                            ),
-                          );
-                        },
-                      ),
-                      flex: 8,
-                    ),
-                    Expanded( // 仅占位作用
-                      child: Container(),
-                      flex: 9,
-                    ),
-                  ],
-                ),
-              ),
-              // 颜色选择区
-              Card(
-                elevation: 0.0,
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, circle) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(0, arrowModel.isLeft),
-                                child: circle,
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(0),
-                              child: Text('Red'),
-                              radius: 40.0,
-                            ),
-                          ),
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(1, arrowModel.isLeft),
-                                child: child,
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(1),
-                              child: Text('Orange'),
-                              radius: 40.0,
-                            ),
-                          ),
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(2, arrowModel.isLeft),
-                                child: child,
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(2),
-                              child: Text('Yellow'),
-                              radius: 40.0,
-                            ),
-                          ),
-                        ]
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 0),),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                      Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 0),),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
                                 return GestureDetector(
                                   onTap: () => model.updateSelectedColor(3, arrowModel.isLeft),
                                   child: child,
                                 );
                               },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(3),
-                              child: Text('Green'),
-                              radius: 40.0,
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(3),
+                                child: Text('Green'),
+                                radius: 40.0,
+                              ),
                             ),
-                          ),
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
                                 return GestureDetector(
-                                  onTap: () => model.updateSelectedColor(4, arrowModel.isLeft),
-                                  child: child
+                                    onTap: () => model.updateSelectedColor(4, arrowModel.isLeft),
+                                    child: child
                                 );
                               },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(4),
-                              child: Text('Blue'),
-                              radius: 40.0,
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(4),
+                                child: Text('Blue'),
+                                radius: 40.0,
+                              ),
                             ),
-                          ),
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(5, arrowModel.isLeft),
-                                child: child,
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(5),
-                              child: Text('Indigo'),
-                              radius: 40.0,
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                                return GestureDetector(
+                                  onTap: () => model.updateSelectedColor(5, arrowModel.isLeft),
+                                  child: child,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(5),
+                                child: Text('Indigo'),
+                                radius: 40.0,
+                              ),
                             ),
-                          ),
-                        ]
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 0),),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(6, arrowModel.isLeft),
-                                child: child,
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(6),
-                              child: Text('Purple'),
-                              radius: 40.0,
-                            ),
-                          ),
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(7, arrowModel.isLeft),
-                                child: child
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(7),
-                              child: Text('Black'),
-                              radius: 40.0,
-                            ),
-                          ),
-                          Consumer2<AddAreaModel, ArrowAreaModel>(
-                            builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
-                              return GestureDetector(
-                                onTap: () => model.updateSelectedColor(8, arrowModel.isLeft),
-                                child: child,
-                              );
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: _buildColorFromArray(8),
-                              child: Text('Cyan'),
-                              radius: 40.0,
-                            ),
-                          ),
-                        ]
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 30),),
-                    Consumer2<ArrowAreaModel, AddAreaModel>(
-                      builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, child) {
-                        return FloatingActionButton.extended(
-                          label: Text('RGB值手动输入'),
-                          backgroundColor: Colors.amber,
-                          onPressed: (){
-                            showCupertinoDialog<int>(context: context,
-                                builder: (context){
-                                  return child;
-                                }
-                            ).then((onValue){
-                              if (onValue == 1) { // 点了确定按钮
-                                addModel.updateInputColor(arrowModel.isLeft, inputR, inputG, inputB);
-                              } else if (onValue == 0) { // 点了取消按钮
-                                // 恢复默认值
-                                inputR = -2;
-                                inputG = -2;
-                                inputB = -2;
-                              }
-                            });
-                          },
-                        );
-                      },
-                      child: CupertinoAlertDialog(
-                        title: Text('输入范围在0~255之间'),
-                        content: Column(
+                          ]
+                      ),
+                      Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 0),),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                                return GestureDetector(
+                                  onTap: () => model.updateSelectedColor(6, arrowModel.isLeft),
+                                  child: child,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(6),
+                                child: Text('Purple'),
+                                radius: 40.0,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text('R:'),
-                                SizedBox(
-                                  width: 100,
-                                  // CupertinoTextField如果不显示设置width，会报以下crash
-                                  // RenderEditable object was given an infinite size during layout.
-                                  child: CupertinoTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      try {
-                                        var intValue = int.parse(value);
-                                        if (intValue < 0 || intValue > 255) {
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                                return GestureDetector(
+                                    onTap: () => model.updateSelectedColor(7, arrowModel.isLeft),
+                                    child: child
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(7),
+                                child: Text('Black'),
+                                radius: 40.0,
+                              ),
+                            ),
+                            Consumer2<AddAreaModel, ArrowAreaModel>(
+                              builder: (context, AddAreaModel model, ArrowAreaModel arrowModel, child) {
+                                return GestureDetector(
+                                  onTap: () => model.updateSelectedColor(8, arrowModel.isLeft),
+                                  child: child,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: _buildColorFromArray(8),
+                                child: Text('Cyan'),
+                                radius: 40.0,
+                              ),
+                            ),
+                          ]
+                      ),
+                      Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 30),),
+                      Consumer2<ArrowAreaModel, AddAreaModel>(
+                        builder: (context, ArrowAreaModel arrowModel, AddAreaModel addModel, child) {
+                          return FloatingActionButton.extended(
+                            label: Text('RGB值手动输入'),
+                            backgroundColor: Colors.amber,
+                            onPressed: (){
+                              showCupertinoDialog<int>(context: context,
+                                  builder: (context){
+                                    return child;
+                                  }
+                              ).then((onValue){
+                                if (onValue == 1) { // 点了确定按钮
+                                  addModel.updateInputColor(arrowModel.isLeft, inputR, inputG, inputB);
+                                } else if (onValue == 0) { // 点了取消按钮
+                                  // 恢复默认值
+                                  inputR = -2;
+                                  inputG = -2;
+                                  inputB = -2;
+                                }
+                              });
+                            },
+                          );
+                        },
+                        child: CupertinoAlertDialog(
+                          title: Text('输入范围在0~255之间'),
+                          content: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text('R:'),
+                                  SizedBox(
+                                    width: 100,
+                                    // CupertinoTextField如果不显示设置width，会报以下crash
+                                    // RenderEditable object was given an infinite size during layout.
+                                    child: CupertinoTextField(
+                                      keyboardType: TextInputType.number,
+                                      onChanged: (value) {
+                                        try {
+                                          var intValue = int.parse(value);
+                                          if (intValue < 0 || intValue > 255) {
+                                            inputR = -1;
+                                          } else {
+                                            inputR = intValue;
+                                          }
+                                        }
+                                        on FormatException catch(e) {
                                           inputR = -1;
-                                        } else {
-                                          inputR = intValue;
                                         }
-                                      }
-                                      on FormatException catch(e) {
-                                        inputR = -1;
-                                      }
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text('G:'),
-                                SizedBox(
-                                  width: 100,
-                                  child: CupertinoTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      try {
-                                        var intValue = int.parse(value);
-                                        if (intValue < 0 || intValue > 255) {
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text('G:'),
+                                  SizedBox(
+                                    width: 100,
+                                    child: CupertinoTextField(
+                                      keyboardType: TextInputType.number,
+                                      onChanged: (value) {
+                                        try {
+                                          var intValue = int.parse(value);
+                                          if (intValue < 0 || intValue > 255) {
+                                            inputG = -1;
+                                          } else {
+                                            inputG = intValue;
+                                          }
+                                        }
+                                        on FormatException catch(e) {
                                           inputG = -1;
-                                        } else {
-                                          inputG = intValue;
                                         }
-                                      }
-                                      on FormatException catch(e) {
-                                        inputG = -1;
-                                      }
-                                    },
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text('B:'),
-                                SizedBox(
-                                  width: 100,
-                                  child: CupertinoTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      try {
-                                        var intValue = int.parse(value);
-                                        if (intValue < 0 || intValue > 255) {
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text('B:'),
+                                  SizedBox(
+                                    width: 100,
+                                    child: CupertinoTextField(
+                                      keyboardType: TextInputType.number,
+                                      onChanged: (value) {
+                                        try {
+                                          var intValue = int.parse(value);
+                                          if (intValue < 0 || intValue > 255) {
+                                            inputB = -1;
+                                          } else {
+                                            inputB = intValue;
+                                          }
+                                        }
+                                        on FormatException catch(e) {
                                           inputB = -1;
-                                        } else {
-                                          inputB = intValue;
                                         }
-                                      }
-                                      on FormatException catch(e) {
-                                        inputB = -1;
-                                      }
-                                    },
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text('取消'),
+                              onPressed: (){
+                                Navigator.of(context).pop(0);
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text('确认'),
+                              onPressed: () {
+                                // 非法输入或者未输入均弹提示
+                                if (inputR == -1 || inputG == -1 || inputB == -1 || inputR == -2) {
+                                  BotToast.showText(text: '请输入0~255之间的数字');
+                                } else {
+                                  Navigator.of(context).pop(1);
+                                }
+                              },
                             ),
                           ],
                         ),
-                        actions: <Widget>[
-                          CupertinoDialogAction(
-                            child: Text('取消'),
-                            onPressed: (){
-                              Navigator.of(context).pop(0);
-                            },
-                          ),
-                          CupertinoDialogAction(
-                            child: Text('确认'),
-                            onPressed: () {
-                              // 非法输入或者未输入均弹提示
-                              if (inputR == -1 || inputG == -1 || inputB == -1 || inputR == -2) {
-                                BotToast.showText(text: '请输入0~255之间的数字');
-                              } else {
-                                Navigator.of(context).pop(1);
-                              }
-                            },
-                          ),
-                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       )

@@ -32,61 +32,69 @@ class _ColorRgbDetailState extends State<ColorRgbDetail> {
       navigationBar: CupertinoNavigationBar(
         previousPageTitle: ItTab.title,
       ),
-      child: SafeArea(
-        child: ConstrainedBox(
-          // 让Column的宽度占据整个屏幕宽度
-          constraints: BoxConstraints(minWidth: double.infinity),
-          child: Container(
-            color: CupertinoColors.systemGrey5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                SizedBox(
-                  width: 300,
-                  child: Text('将红、绿和蓝色混在一起，取值不同可以产生不同的颜色，取值范围是0-255'),
-                ),
-                CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, r, g, b),
-                  radius: 100,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Text('R:$r'),
-                      Text('G:$g'),
-                      Text('B:$b'),
-                    ],
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: ConstrainedBox(
+            // 让Column的宽度占据整个屏幕宽度
+            constraints: BoxConstraints(
+              minWidth: double.infinity,
+              minHeight: MediaQuery.of(context).size.height - 2 * MediaQuery.of(context).padding.top,
+            ),
+            child: Container(
+              color: CupertinoColors.systemGrey5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    width: 300,
+                    child: Text('将红、绿和蓝色混在一起，取值不同可以产生不同的颜色，取值范围是0-255'),
                   ),
-                ),
-                SizedBox(
-                  width: 200, // 固定宽度，防止button文字内容变化时导致button宽度变化
-                  child: FloatingActionButton.extended(
-                    heroTag: 'r', // 多个button时，需求设置此属性为不同值，否则引起相关崩溃
-                    backgroundColor: Colors.red,
-                    label: Text('R=$r，点击修改'),
-                    onPressed: () => pickColorInt('r'),
+//                  Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+                  CircleAvatar(
+                    backgroundColor: Color.fromARGB(255, r, g, b),
+                    radius: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Text('R:$r'),
+                        Text('G:$g'),
+                        Text('B:$b'),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child: FloatingActionButton.extended(
-                    heroTag: 'g',
-                    backgroundColor: Colors.green,
-                    label: Text('G=$g，点击修改'),
-                    onPressed: () => pickColorInt('g'),
+//                  Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+                  SizedBox(
+                    width: 200, // 固定宽度，防止button文字内容变化时导致button宽度变化
+                    child: FloatingActionButton.extended(
+                      heroTag: 'r', // 多个button时，需求设置此属性为不同值，否则引起相关崩溃
+                      backgroundColor: Colors.red,
+                      label: Text('R=$r，点击修改'),
+                      onPressed: () => pickColorInt('r'),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child:  FloatingActionButton.extended(
-                    heroTag: 'b',
-                    backgroundColor: Colors.blue,
-                    label: Text('B=$b，点击修改'),
-                    onPressed: () => pickColorInt('b'),
+//                  Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+                  SizedBox(
+                    width: 200,
+                    child: FloatingActionButton.extended(
+                      heroTag: 'g',
+                      backgroundColor: Colors.green,
+                      label: Text('G=$g，点击修改'),
+                      onPressed: () => pickColorInt('g'),
+                    ),
                   ),
-                ),
-              ],
+//                  Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+                  SizedBox(
+                    width: 200,
+                    child:  FloatingActionButton.extended(
+                      heroTag: 'b',
+                      backgroundColor: Colors.blue,
+                      label: Text('B=$b，点击修改'),
+                      onPressed: () => pickColorInt('b'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

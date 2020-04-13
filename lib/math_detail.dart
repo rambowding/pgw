@@ -28,141 +28,142 @@ class _MathDetailState extends State<MathDetail> {
           ChangeNotifierProvider.value(value: ArrowAreaModel()),
           ChangeNotifierProvider.value(value: OperatorModel()),
         ],
-        child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              // 算术符区
-              Card(
-                elevation: 4,
-                margin: EdgeInsets.fromLTRB(12, 12, 12, 0),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Consumer2<OperatorModel, ResultAreaModel>(
-                    builder: (context, OperatorModel opModel, ResultAreaModel resultModel,  _) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          FloatingActionButton.extended(
-                            heroTag: '+',
-                            onPressed: () {
-                              opModel.update(0);
-                              resultModel.resetResult();
-                            },
-                            label: Text('加(+)', style: TextStyle(color: CupertinoColors.systemOrange),),
-                            backgroundColor: _updateOpAreaColor(opModel.value == 0),
-                          ),
-                          FloatingActionButton.extended(
-                            heroTag: '-',
-                            onPressed: () {
-                              opModel.update(1);
-                              resultModel.resetResult();
-                            },
-                            label: Text('减(-)', style: TextStyle(color: CupertinoColors.systemOrange),),
-                            backgroundColor: _updateOpAreaColor(opModel.value == 1),
-                          ),
-                          FloatingActionButton.extended(
-                            heroTag: '×',
-                            onPressed: () {
-                              opModel.update(2);
-                              resultModel.resetResult();
-                            },
-                            label: Text('乘(×)', style: TextStyle(color: CupertinoColors.systemOrange),),
-                            backgroundColor: _updateOpAreaColor(opModel.value == 2),
-                          ),
-                          FloatingActionButton.extended(
-                            heroTag: '÷',
-                            onPressed: () {
-                              opModel.update(3);
-                              resultModel.resetResult();
-                            },
-                            label: Text('除(÷)', style: TextStyle(color: CupertinoColors.systemOrange),),
-                            backgroundColor: _updateOpAreaColor(opModel.value == 3),
-                          ),
-                        ],
-                      );
-                    },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                // 算术符区
+                Card(
+                  elevation: 4,
+                  margin: EdgeInsets.fromLTRB(12, 12, 12, 0),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Consumer2<OperatorModel, ResultAreaModel>(
+                      builder: (context, OperatorModel opModel, ResultAreaModel resultModel,  _) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            FloatingActionButton.extended(
+                              heroTag: '+',
+                              onPressed: () {
+                                opModel.update(0);
+                                resultModel.resetResult();
+                              },
+                              label: Text('加(+)', style: TextStyle(color: CupertinoColors.systemOrange),),
+                              backgroundColor: _updateOpAreaColor(opModel.value == 0),
+                            ),
+                            FloatingActionButton.extended(
+                              heroTag: '-',
+                              onPressed: () {
+                                opModel.update(1);
+                                resultModel.resetResult();
+                              },
+                              label: Text('减(-)', style: TextStyle(color: CupertinoColors.systemOrange),),
+                              backgroundColor: _updateOpAreaColor(opModel.value == 1),
+                            ),
+                            FloatingActionButton.extended(
+                              heroTag: '×',
+                              onPressed: () {
+                                opModel.update(2);
+                                resultModel.resetResult();
+                              },
+                              label: Text('乘(×)', style: TextStyle(color: CupertinoColors.systemOrange),),
+                              backgroundColor: _updateOpAreaColor(opModel.value == 2),
+                            ),
+                            FloatingActionButton.extended(
+                              heroTag: '÷',
+                              onPressed: () {
+                                opModel.update(3);
+                                resultModel.resetResult();
+                              },
+                              label: Text('除(÷)', style: TextStyle(color: CupertinoColors.systemOrange),),
+                              backgroundColor: _updateOpAreaColor(opModel.value == 3),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              // 结果区
-              Card(
-                elevation: 4,
-                margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                      child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                        builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowMode, _) {
-                          return GestureDetector(
-                            onTap: () => arrowMode.update(0),
-                            child: Container(
-                              margin: EdgeInsets.all(15),
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: CupertinoColors.systemGrey, width: 0.5),
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Text(
-                                resultModel.left,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                // 结果区
+                Card(
+                  elevation: 4,
+                  margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                          builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowMode, _) {
+                            return GestureDetector(
+                              onTap: () => arrowMode.update(0),
+                              child: Container(
+                                margin: EdgeInsets.all(15),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: CupertinoColors.systemGrey, width: 0.5),
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Text(
+                                  resultModel.left,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
+                        flex: 6,
                       ),
-                      flex: 6,
-                    ),
-                    Expanded(
-                      child: Consumer<OperatorModel>(
-                        builder: (context, OperatorModel model, _) {
-                          return Text(_updateOperatorChar(model.value),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 30),
-                          );
-                        },
+                      Expanded(
+                        child: Consumer<OperatorModel>(
+                          builder: (context, OperatorModel model, _) {
+                            return Text(_updateOperatorChar(model.value),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 30),
+                            );
+                          },
+                        ),
+                        flex: 1,
                       ),
-                      flex: 1,
-                    ),
-                    Expanded(
-                      child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                        builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowMode, _) {
-                          return GestureDetector(
-                            onTap: () => arrowMode.update(1),
-                            child: Container(
-                              margin: EdgeInsets.all(15),
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: CupertinoColors.systemGrey, width: 0.5),
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Text(
-                                resultModel.right,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                          builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowMode, _) {
+                            return GestureDetector(
+                              onTap: () => arrowMode.update(1),
+                              child: Container(
+                                margin: EdgeInsets.all(15),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: CupertinoColors.systemGrey, width: 0.5),
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Text(
+                                  resultModel.right,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
+                        flex: 6,
                       ),
-                      flex: 6,
-                    ),
-                    Expanded(
-                      child: Text('=',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 30),
+                      Expanded(
+                        child: Text('=',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 30),
+                        ),
+                        flex: 1,
                       ),
-                      flex: 1,
-                    ),
-                    Expanded(
-                      child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                      Expanded(
+                        child: Consumer2<ResultAreaModel, ArrowAreaModel>(
                           builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, _) {
                             return GestureDetector(
                               onTap: () => arrowModel.update(2),
@@ -183,341 +184,342 @@ class _MathDetailState extends State<MathDetail> {
                               ),
                             );
                           },
+                        ),
+                        flex: 6,
                       ),
-                      flex: 6,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              // 箭头区
-              Container( // 此区域用Container来wrap一下，否则高度会过高，导致超过屏幕尺寸，原因未知
-                height: 60,
-                margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                      child: Consumer<ArrowAreaModel>(
-                        builder: (context, ArrowAreaModel model, _) {
-                          if (model.index == 0) {
-                            return Image.asset('assets/images/arrow_up.png');
-                          } else {
-                            return Container();
-                          }
-                        },
-                      ),
-                      flex: 5,
-                    ),
-                    Expanded(
-                      child: Container(),
-                      flex: 1,
-                    ),
-                    Expanded(
-                      child: Consumer<ArrowAreaModel>(
-                        builder: (context, ArrowAreaModel model, _) {
-                          if (model.index == 1) {
-                            return Image.asset('assets/images/arrow_up.png');
-                          } else {
-                            return Container();
-                          }
-                        },
-                      ),
-                      flex: 5,
-                    ),
-                    Expanded(
-                      child: Container(),
-                      flex: 1,
-                    ),
-                    Expanded(
-                      child: Consumer<ArrowAreaModel>(
-                        builder: (context, ArrowAreaModel model, _) {
-                          if (model.index == 2) {
-                            return Image.asset('assets/images/arrow_up.png');
-                          } else {
-                            return Container();
-                          }
-                        },
-                      ),
-                      flex: 5,
-                    ),
-                  ],
-                ),
-              ),
-              // 键盘区
-              Card(
-                elevation: 4,
-                margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                child: Column(
+                // 箭头区
+                Container( // 此区域用Container来wrap一下，否则高度会过高，导致超过屏幕尺寸，原因未知
+                  height: 60,
+                  margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
-                            // SizedBox来实现设置宽高
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 1,
-                                  onPressed: () => resultModel.update('1', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('1',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 2,
-                                  onPressed: () => resultModel.update('2', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('2',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 3,
-                                  onPressed: () => resultModel.update('3', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('3',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      Expanded(
+                        child: Consumer<ArrowAreaModel>(
+                          builder: (context, ArrowAreaModel model, _) {
+                            if (model.index == 0) {
+                              return Image.asset('assets/images/arrow_up.png');
+                            } else {
+                              return Container();
+                            }
+                          },
                         ),
+                        flex: 5,
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
-                            // SizedBox来实现设置宽高
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 4,
-                                  onPressed: () => resultModel.update('4', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('4',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 5,
-                                  onPressed: () => resultModel.update('5', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('5',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 6,
-                                  onPressed: () => resultModel.update('6', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('6',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      Expanded(
+                        child: Container(),
+                        flex: 1,
+                      ),
+                      Expanded(
+                        child: Consumer<ArrowAreaModel>(
+                          builder: (context, ArrowAreaModel model, _) {
+                            if (model.index == 1) {
+                              return Image.asset('assets/images/arrow_up.png');
+                            } else {
+                              return Container();
+                            }
+                          },
                         ),
+                        flex: 5,
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
-                            // SizedBox来实现设置宽高
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 7,
-                                  onPressed: () => resultModel.update('7', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('7',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 8,
-                                  onPressed: () => resultModel.update('8', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('8',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 9,
-                                  onPressed: () => resultModel.update('9', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('9',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      Expanded(
+                        child: Container(),
+                        flex: 1,
+                      ),
+                      Expanded(
+                        child: Consumer<ArrowAreaModel>(
+                          builder: (context, ArrowAreaModel model, _) {
+                            if (model.index == 2) {
+                              return Image.asset('assets/images/arrow_up.png');
+                            } else {
+                              return Container();
+                            }
+                          },
                         ),
+                        flex: 5,
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
-                            // SizedBox来实现设置宽高
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 0,
-                                  onPressed: () => resultModel.update('0', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('0',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer3<ResultAreaModel, ArrowAreaModel, OperatorModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel,
-                                    OperatorModel opModel, child) {
-                                 if (arrowModel.index == 2) {
-                                   return FloatingActionButton(
-                                     heroTag: -1,
-                                     onPressed: () {
-                                       // 只有选中结果按钮才响应点击事件处理逻辑
-                                       if (arrowModel.index == 2) {
-                                         bool answerRight = resultModel.checkResult(opModel.value);
-
-                                         String text = '答错啦，再想一想';
-                                         if (answerRight) {
-                                           text = '答对啦，你真棒';
-                                         }
-                                         showCupertinoDialog(
-                                           context: context,
-                                           builder: (context) {
-                                             return CupertinoAlertDialog(
-                                               content: Text(text),
-                                               actions: <Widget>[
-                                                 CupertinoDialogAction(
-                                                   child: Text('关闭'),
-                                                   onPressed: () => Navigator.of(context).pop(),
-                                                 )
-                                               ],
-                                             );
-                                           },
-                                         );
-                                       }
-                                     },
-                                     backgroundColor: arrowModel.index == 2 ? CupertinoColors.systemOrange : CupertinoColors.white,
-                                     child: child,
-                                   );
-                                 } else {
-                                   return Container();
-                                 }
-                                },
-                                child: Text('检查答案',
-                                  style: TextStyle(
-                                      fontSize: 15
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Consumer2<ResultAreaModel, ArrowAreaModel>(
-                                builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
-                                  heroTag: 10,
-                                  onPressed: () => resultModel.update('c', arrowModel.index),
-                                  child: child,
-                                ),
-                                child: Text('C',
-                                  style: TextStyle(
-                                      fontSize: 30
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 12),),
-                    ]
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                // 键盘区
+                Card(
+                  elevation: 4,
+                  margin: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
+                              // SizedBox来实现设置宽高
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 1,
+                                    onPressed: () => resultModel.update('1', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('1',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 2,
+                                    onPressed: () => resultModel.update('2', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('2',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 3,
+                                    onPressed: () => resultModel.update('3', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('3',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
+                              // SizedBox来实现设置宽高
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 4,
+                                    onPressed: () => resultModel.update('4', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('4',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 5,
+                                    onPressed: () => resultModel.update('5', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('5',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 6,
+                                    onPressed: () => resultModel.update('6', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('6',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
+                              // SizedBox来实现设置宽高
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 7,
+                                    onPressed: () => resultModel.update('7', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('7',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 8,
+                                    onPressed: () => resultModel.update('8', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('8',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 9,
+                                    onPressed: () => resultModel.update('9', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('9',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              // FloatingActionButton没找到设置宽高的属性，通过外部包装一个
+                              // SizedBox来实现设置宽高
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 0,
+                                    onPressed: () => resultModel.update('0', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('0',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer3<ResultAreaModel, ArrowAreaModel, OperatorModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel,
+                                      OperatorModel opModel, child) {
+                                    if (arrowModel.index == 2) {
+                                      return FloatingActionButton(
+                                        heroTag: -1,
+                                        onPressed: () {
+                                          // 只有选中结果按钮才响应点击事件处理逻辑
+                                          if (arrowModel.index == 2) {
+                                            bool answerRight = resultModel.checkResult(opModel.value);
+
+                                            String text = '答错啦，再想一想';
+                                            if (answerRight) {
+                                              text = '答对啦，你真棒';
+                                            }
+                                            showCupertinoDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return CupertinoAlertDialog(
+                                                  content: Text(text),
+                                                  actions: <Widget>[
+                                                    CupertinoDialogAction(
+                                                      child: Text('关闭'),
+                                                      onPressed: () => Navigator.of(context).pop(),
+                                                    )
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+                                        },
+                                        backgroundColor: arrowModel.index == 2 ? CupertinoColors.systemOrange : CupertinoColors.white,
+                                        child: child,
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  },
+                                  child: Text('检查答案',
+                                    style: TextStyle(
+                                        fontSize: 15
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: Consumer2<ResultAreaModel, ArrowAreaModel>(
+                                  builder: (context, ResultAreaModel resultModel, ArrowAreaModel arrowModel, child) => FloatingActionButton(
+                                    heroTag: 10,
+                                    onPressed: () => resultModel.update('c', arrowModel.index),
+                                    child: child,
+                                  ),
+                                  child: Text('C',
+                                    style: TextStyle(
+                                        fontSize: 30
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 12),),
+                      ]
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
